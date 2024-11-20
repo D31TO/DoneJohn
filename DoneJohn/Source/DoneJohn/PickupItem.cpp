@@ -3,6 +3,7 @@
 
 #include "PickupItem.h"
 #include "Components/SphereComponent.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 APickupItem::APickupItem()
@@ -19,7 +20,7 @@ APickupItem::APickupItem()
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Static Mesh"));
 
 
-	StaticMesh->AttachToComponent(SphereCollider, FAttachmentTransformRules::KeepWorldTransform);
+	StaticMesh->SetupAttachment(SphereCollider);
 }
 
 // Called when the game starts or when spawned
@@ -39,6 +40,5 @@ void APickupItem::Tick(float DeltaTime)
 void APickupItem::OnPickup(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Pickup Success"));
-	Destroy();
 }
 
